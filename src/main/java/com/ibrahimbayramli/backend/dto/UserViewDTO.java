@@ -9,6 +9,7 @@ import java.io.Serializable;
 public final class UserViewDTO implements Serializable {
     private static final long serialVersionUID=1L;
 
+
     private final String firstName;
     private final String lastName;
 
