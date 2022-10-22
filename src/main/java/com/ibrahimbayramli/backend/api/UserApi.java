@@ -1,14 +1,13 @@
 package com.ibrahimbayramli.backend.api;
 
+import com.ibrahimbayramli.backend.dto.UserCreateDTO;
 import com.ibrahimbayramli.backend.dto.UserViewDTO;
 import com.ibrahimbayramli.backend.service.UserService;
+import com.ibrahimbayramli.backend.shared.GenericResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -24,5 +23,14 @@ public class UserApi {
         final UserViewDTO user=userService.getUserById(id);
 
         return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("v1/user")
+    public ResponseEntity<?> createUser(@RequestBody UserCreateDTO userCreateDTO){
+
+        userService.createUser(userCreateDTO);
+
+        return ResponseEntity.ok(new GenericResponse("User created."));
+
     }
 }
