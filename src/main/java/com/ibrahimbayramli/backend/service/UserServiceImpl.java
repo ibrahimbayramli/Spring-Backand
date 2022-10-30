@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional(readOnly = true,propagation = Propagation.SUPPORTS)
     public List<UserViewDTO> getUsers() {
-
+        
         return userRepository.findAll().stream().map(UserViewDTO::of).collect(Collectors.toList());
     }
 
@@ -51,6 +51,13 @@ public class UserServiceImpl implements UserService{
 
         final User updatedUser=userRepository.save(user);
         return UserViewDTO.of(user);
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(Long id) {
+        final User user=userRepository.findById(id).orElseThrow(()->new NotFoundException("Not Found Exception"));
+        userRepository.deleteById(user.getId());
     }
 
 

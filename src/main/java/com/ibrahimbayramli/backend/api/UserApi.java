@@ -52,4 +52,12 @@ public class UserApi {
         return ResponseEntity.ok(user);
     }
 
+    @DeleteMapping("/v1/user/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable("id") Long id){
+
+        userService.deleteUser(id);
+
+        return ResponseEntity.ok(new GenericResponse("User Deleted"));
+    }
+
 }
