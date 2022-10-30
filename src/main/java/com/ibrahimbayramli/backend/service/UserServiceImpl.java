@@ -1,6 +1,7 @@
 package com.ibrahimbayramli.backend.service;
 
 import com.ibrahimbayramli.backend.dto.UserCreateDTO;
+import com.ibrahimbayramli.backend.dto.UserUpdateDTO;
 import com.ibrahimbayramli.backend.dto.UserViewDTO;
 import com.ibrahimbayramli.backend.exception.NotFoundException;
 import com.ibrahimbayramli.backend.model.User;
@@ -41,7 +42,16 @@ public class UserServiceImpl implements UserService{
         return UserViewDTO.of(user);
     }
 
+    @Override
+    @Transactional
+    public UserViewDTO updateUser(Long id, UserUpdateDTO userUpdateDTO) {
+        final User user =userRepository.findById(id).orElseThrow(()->new NotFoundException("Not Found Exception"));
+        user.setFirstName(userUpdateDTO.getFirstName());
+        user.setLastName(userUpdateDTO.getLastName());
 
+        final User updatedUser=userRepository.save(user);
+        return UserViewDTO.of(user);
+    }
 
 
 }
